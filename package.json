@@ -1,0 +1,14 @@
+{
+  "name": "me_app",
+  "private": true,
+  "workspaces": ["api", "client", "shared"],
+  "version": "1.0.0",
+  "description": "work_app",
+  "license": "ISC",
+  "author": "Jordan Sivils",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  }
+}
