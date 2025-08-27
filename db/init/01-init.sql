@@ -1,0 +1,2 @@
+CREATE DATABASE me_local;
+CREATE DATABASE me_test;

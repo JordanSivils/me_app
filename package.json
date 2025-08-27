@@ -1,7 +1,11 @@
 {
   "name": "me_app",
   "private": true,
-  "workspaces": ["api", "client", "shared"],
+  "workspaces": [
+    "api",
+    "client",
+    "shared"
+  ],
   "version": "1.0.0",
   "description": "work_app",
   "license": "ISC",
@@ -9,6 +13,17 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "dev": "concurrently -n shared,api,client \"npm:watch -w shared\" \"npm run dev -w api\" \"npm run dev -w client\" ",
+    "build": "npm run build -w shared && npm run build -w api && npm run build -w client",
+    "typecheck": "npm run typecheck -w shared && npm run typecheck -w api && npm run typecheck -w client",
+    "test": "npm test -w api",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f db",
+    "db:nuke": "docker compose down -v && docker compose up -d"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "tree-kill": "^1.2.2"
   }
 }
