@@ -1,9 +1,12 @@
 import { ClerkProvider } from "@clerk/react-router"
 import { BrowserRouter, Route, Routes } from "react-router"
 import SignedInPermission from "./permissions/SignedInPermission"
-import Root from "./routes/root/Root"
 import AppShell from "../components/layout/AppShell/AppShell"
 import HomePage from "../components/Home/HomePage"
+import Root from "../pages/specials/Root"
+import InventoryUpload from "../components/ExceltoPdf/pages/InventoryUpload"
+import PdfDownload from "../components/ExceltoPdf/pages/PdfDownload"
+import FourOhFour from "../pages/specials/Fours"
 
 function Routing() {
   const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -22,7 +25,12 @@ function Routing() {
               {/* True Home */}
               <Route path="/home" element={<HomePage />} />
 
+              {/* Inventory conversion paths */}
+              <Route path="/inventory-upload" element={<InventoryUpload />} />
+              <Route path="/pdf-download" element={<PdfDownload />} />
 
+              <Route path="*" element={<FourOhFour />} />
+              
             </Route>
           </Route>
         </Routes>
