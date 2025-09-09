@@ -1,5 +1,4 @@
-import { z } from "zod"
+import * as XLSXLib from "xlsx";
 
-export const CreateSupplierInput = z.object({
-    name: z.string().min(2).trim()
-})
+// re-export under a stable name
+export const XLSX = XLSXLib;

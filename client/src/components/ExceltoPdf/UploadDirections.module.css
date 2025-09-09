@@ -1,0 +1,10 @@
+.directionsContainer {
+    border: 1px solid slateblue;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.directionsContainer ul {
+    gap: 2rem
+}

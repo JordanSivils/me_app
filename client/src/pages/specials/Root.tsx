@@ -1,5 +1,6 @@
 import ForcedLogin from "./ForcedLogin"
 
+
 const Root = () => {
     return <ForcedLogin />
 }
