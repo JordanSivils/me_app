@@ -16,10 +16,11 @@
 }
 
 .signIn {
-    background-color: rgba(0, 255, 0, 0.636);
+    background-color: var(--prim-blue);
     color: inherit;
     border-radius: 4px;
     border: none;
     font-size: 20px;
     padding: 4px 14px;
+    cursor: pointer;
 }

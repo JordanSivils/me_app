@@ -10,8 +10,8 @@ const ForcedLogin = () => {
             <div className={styles.rootFlex}>
                 <SignedOut>
                     <div className={styles.rootContainer}>
-                    <h1 className={styles.openingText}>You Must Be Signed In To Use This App</h1>
-                    
+                    <img src="src/assets/me_icon.webp" height={300} width={300} />
+                    <h3 className={styles.openingText}>You Must Be Signed In To Use This App</h3>
                     <SignInButton>
                         <button className={styles.signIn}>Sign in</button>
                     </SignInButton>
