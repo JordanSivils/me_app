@@ -40,7 +40,7 @@ const UploadDirections = () => {
                 <p>a: Select the Smart Export Icon.</p>
                 <img src="src/assets/Smart_Export.webp" alt="Gear Icon" height={40} width={40} />
                 <p>b: Select the Options for "Selected Lines". This will immediately create an excel file with the selected lines.</p>
-                <img src="src/assets/Select_Supplier.webp" alt="Gear Icon" height={40} width={40} />
+                <img src="src/assets/Correct_Export.webp" alt="Gear Icon" height={40} width={40} />
             </div>
         </li>
         <li>
