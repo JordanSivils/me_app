@@ -6,5 +6,12 @@
 }
 
 .directionsContainer ul {
-    gap: 2rem
+    gap: 2rem;
+    
+}
+
+.directionsContainer ul div {
+    gap: 4px;
+    padding-top: 6px;
+    border-top: 1px solid rgb(71, 71, 71);
 }
