@@ -10,3 +10,35 @@ body {
     font-family: var(--prim-font-fam);
     color: var(--prim-font-color);
 }
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}

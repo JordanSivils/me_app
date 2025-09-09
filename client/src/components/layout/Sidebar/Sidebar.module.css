@@ -8,9 +8,6 @@
 }
 
 .sidebarItemContainer {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
     gap: 10px;
 }
 
@@ -27,6 +24,5 @@
 
 .sidebarLink:hover {
     background-color: var( --damp-green);
-    color: white;
     transition: 200ms ease;
 }

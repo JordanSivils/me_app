@@ -39,3 +39,11 @@
   grid-area: footer;
   border-top: 1px solid rgb(10, 10, 10);
 }
+
+.bodyContainer {
+    height: 100%;
+    overflow-y: scroll;   
+    min-height: 0;
+    width: 100%;
+    padding: 8px;
+}

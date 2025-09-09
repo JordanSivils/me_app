@@ -1,0 +1,21 @@
+.gridCard {
+    gap: 10px;
+    border: 1px solid rgb(61, 61, 61);
+    border-radius: 6px;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: var(--accent-dark);
+}
+
+.gridCard img {
+    height: 80px;
+    width: 80px;
+    color: aliceblue;
+}
+
+.gridCard p {
+    color: var(--prim-font-color);
+    text-decoration: none;
+}
