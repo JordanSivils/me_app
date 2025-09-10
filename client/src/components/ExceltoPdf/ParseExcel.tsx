@@ -1,4 +1,4 @@
-import { XLSX } from "@me/shared"
+import * as XLSX from "xlsx"
 import { useNavigate } from "react-router"
 import styles from "./ParseExcel.module.css"
 import { useRef, useState } from "react"
