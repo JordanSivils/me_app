@@ -20,8 +20,8 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install deps (root)
-        run: npm ci
+      - name: Install deps (all workspaces)
+        run: npm ci --workspaces --include-workspace-root
 
       - name: Build shared
         run: npm run build -w shared
