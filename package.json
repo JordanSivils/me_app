@@ -13,6 +13,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "build:client": "npm run --workspace @me/shared build && npm run --workspace @me/client build",
     "dev": "concurrently -n shared,api,client \"npm:watch -w shared\" \"npm run dev -w api\" \"npm run dev -w client\" ",
     "build": "npm run build -w shared && npm run build -w api && npm run build -w client",
     "typecheck": "npm run typecheck -w shared && npm run typecheck -w api && npm run typecheck -w client",
