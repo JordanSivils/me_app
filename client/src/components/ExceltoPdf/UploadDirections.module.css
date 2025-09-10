@@ -1,8 +1,11 @@
 .directionsContainer {
-    border: 1px solid slateblue;
     width: 100%;
     padding: 1rem;
     gap: 1rem;
+}
+
+.directionsContainer h2 {
+    text-align: center;
 }
 
 .directionsContainer ul {
