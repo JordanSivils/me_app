@@ -15,6 +15,10 @@
     align-items: center;
 }
 
+.rootContainer img {
+    border-radius: 6px;
+}
+
 .signIn {
     background-color: var(--prim-blue);
     color: inherit;
