@@ -24,7 +24,6 @@
   "dependencies": {
     "@clerk/backend": "^2.5.0",
     "@clerk/express": "^1.7.10",
-    "@me/shared": "1.0.0",
     "@prisma/client": "^6.2.1",
     "body-parser": "^1.20.3",
     "compression": "^1.8.1",
