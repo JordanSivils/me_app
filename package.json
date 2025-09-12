@@ -3,8 +3,7 @@
   "private": true,
   "workspaces": [
     "api",
-    "client",
-    "shared"
+    "client"
   ],
   "version": "1.0.0",
   "description": "work_app",

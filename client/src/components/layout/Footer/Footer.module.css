@@ -6,3 +6,7 @@
     background-color: var(--accent-dark);
     height: 100%;
 }
+
+.footerContainer p {
+    font-size: 10px;
+}
