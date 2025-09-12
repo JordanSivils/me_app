@@ -22,9 +22,5 @@ jobs:
 
       - name: Install deps (all workspaces)
         run: npm ci --workspaces --include-workspace-root
-
-      - name: Build api
-        run: npm run build -w api
-
-      - name: Build client
-        run: npm run build -w client
+      - name: Build all workspaces
+        run: npm run -ws --if-present build
