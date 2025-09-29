@@ -3,13 +3,23 @@ name: CI
 on:
   push:
     branches: ["**"]          # run on any branch push
+    paths: 
+      - "client/**"
+      - "./github/workflows/ci.yml"
   pull_request:
-    branches: [main]          # and on PRs into main
+    branches: [main]   # and on PRs into main
+    paths:       
+      - "client/**"
+      - "./github/workflows/ci.yml"
   workflow_dispatch:          # manual "Run workflow" button
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,8 +29,10 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependancy-path: client/package.json
 
-      - name: Install deps (all workspaces)
-        run: npm ci --workspaces --include-workspace-root
-      - name: Build all workspaces
-        run: npm run -ws --if-present build
+      - name: Install deps 
+        run: npm ci 
+
+      - name: Build 
+        run: npm run build
