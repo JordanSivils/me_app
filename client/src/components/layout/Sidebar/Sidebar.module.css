@@ -26,3 +26,7 @@
     background-color: var( --damp-green);
     transition: 200ms ease;
 }
+
+.sbSm {
+    font-size: 12px;
+}

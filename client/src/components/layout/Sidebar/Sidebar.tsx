@@ -5,6 +5,7 @@ const Sidebar = () => {
         <div className={styles.sidebarContainer}>
             <ul className={styles.sidebarItemContainer}><p className={styles.sidebarId}>Main Nav</p>
                 <li className={styles.sidebarItem}><a href="/home" className={styles.sidebarLink}>Home</a></li>
+                <li className={styles.sidebarItem}><a href="/negative-inventory" className={`${styles.sidebarLink} ${styles.sbSm}`}>Negative Inventory</a></li>
             </ul>
             <ul className={styles.sidebarItemContainer}><p className={styles.sidebarId}>Quick Tools</p>
                 <li className={styles.sidebarItem}><a href="/inventory-upload" className={styles.sidebarLink}>Inventory</a></li>
