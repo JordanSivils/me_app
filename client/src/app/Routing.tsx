@@ -7,6 +7,7 @@ import Root from "../pages/specials/Root"
 import InventoryUpload from "../components/ExceltoPdf/pages/InventoryUpload"
 import PdfDownload from "../components/ExceltoPdf/pages/PdfDownload"
 import FourOhFour from "../pages/specials/Fours"
+import NegativeInventory from "../components/negativeInventory/page/NegativeInventory"
 
 function Routing() {
   const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -28,6 +29,8 @@ function Routing() {
               {/* Inventory conversion paths */}
               <Route path="/inventory-upload" element={<InventoryUpload />} />
               <Route path="/pdf-download" element={<PdfDownload />} />
+
+              <Route path="/negative-inventory" element={<NegativeInventory /> }/>
 
               <Route path="*" element={<FourOhFour />} />
               

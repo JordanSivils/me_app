@@ -1,0 +1,20 @@
+.fileFormContainer {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 20px
+}
+
+.fileFormBtn {
+    color: white;
+    background-color: rgb(1, 145, 1);
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
