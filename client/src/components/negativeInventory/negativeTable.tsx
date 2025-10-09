@@ -4,16 +4,18 @@ import Portal from "../UI/portal/Portal";
 import type { NegativeItemList } from "./types/negativeTypes";
 import { useAuth } from "@clerk/react-router";
 import { apiFetch } from "../../api/fetchData";
-import type { ListResponseObject } from "../../listResponse";
 import FileForm from "../upload/UploadFile";
 import { apiPatch } from "../../api/patch";
+import type { ListResponseObject } from "../../api/types/responses";
+import SingleItem from "../item/SingleItem";
+import { notify } from "../UI/toast";
 
 const NegativeInventoryTable = () => {
     const { getToken } = useAuth();
     const [negativeInventory, setNegativeInventory] = useState<NegativeItemList[] | null>(null);
     const [createModalOpen, setCreateModalOpen] = useState(false);
-    // const [detailModalOpen, setDetailModalOpen] = useState(false);
-    // const [activeId, setActiveId] = useState<string | null>(null);
+    const [detailModalOpen, setDetailModalOpen] = useState(false);
+    const [activeId, setActiveId] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [limit, setLimit] = useState<number>(15);
     const [previousPage, setPreviousPage] = useState(false);
@@ -27,21 +29,27 @@ const NegativeInventoryTable = () => {
     )
 
     const fetchData = useCallback(async () => {
+        try {
             const token = await getToken();
             if (!token) {
                 console.warn("No Token")
-                return <p>User Credentials not Found</p>
+                notify.error("No User Credentials")
+                return 
             }
             const res = await apiFetch<ListResponseObject>(url, token)
             const pagination = res.data
-            const data = res.data?.items
-            setNegativeInventory(data);
+            const data = res.data?.items 
+            setNegativeInventory(data); 
             setCurrentPage(pagination.page);
             setLimit(pagination.limit);
             setTotalPages(pagination.totalPages)
             setPreviousPage(pagination.previousPage || false);
             setNextPage(pagination.nextPage || false)
             setTotal(pagination.total);
+        } catch (error) {
+            notify.error("Server Error")
+        }
+            
         }, [getToken, url])
     
     useEffect(() => {
@@ -68,23 +76,26 @@ const NegativeInventoryTable = () => {
         const token = await getToken();
         if (!token) {
             console.warn("No Token")
-            return <p>User Credentials not Found</p>
+            notify.error("No User Credentials")
+            return 
         }
         try {
             await apiPatch<PatchBody>(`/item/${row.id}`, {status: checked ? "standard" : "negative"}, token)
-
+            notify.success("Handled Successfully")
             await fetchData()
-        } catch (error) {
-            console.error(error)
+        } catch (error: any) {
+            notify.error(error.message || "Server Error")
         }
     }
 
     return (
        <div className={styles.tableContainer}>
-            <Portal isOpen={createModalOpen} onClose={() => setCreateModalOpen(false)}><FileForm /></Portal>
-            {/* <Portal isOpen={detailModalOpen} onClose={() => setDetailModalOpen(false)}>
-                {activeId && <p>supplier Details</p>}
-            </Portal> */}
+            <Portal isOpen={createModalOpen} onClose={() => setCreateModalOpen(false)}><FileForm onSuccess={() => {
+                setCreateModalOpen(false)
+            }} /></Portal>
+            <Portal isOpen={detailModalOpen} onClose={() => setDetailModalOpen(false)}>
+                {activeId && <SingleItem itemId={activeId} />}
+            </Portal>
             <div className={styles.tableHeader}>
                 <div className={`${styles.topGroup} flex`}>
                     <h3>Negative Inventory List</h3>
@@ -106,7 +117,7 @@ const NegativeInventoryTable = () => {
                         <th className={styles.headIdentifier}>Description</th>
                         <th className={styles.headIdentifier}>Available</th>
                         <th className={styles.headIdentifier}>Handled?</th>
-                        {/* <th className={styles.headIdentifier}>Details</th> */}
+                        <th className={styles.headIdentifier}>Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,13 +139,13 @@ const NegativeInventoryTable = () => {
                                 <span className={`${styles.slider} ${styles.round}`}></span>
                             </label>
                         </td>
-                        {/* <td className={styles.colData}>
+                        <td className={styles.colData}>
                             <button onClick={() => {
                                         setDetailModalOpen(true)
                                         setActiveId(row.id)
                                     }
                             } className={styles.tableLink}>Details</button>
-                        </td> */}
+                        </td>
                     </tr>
                     ))}
                     

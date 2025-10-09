@@ -4,21 +4,23 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { fileUpload } from "../../api/post"
 import styles from  "./FileForm.module.css"
+import { notify } from "../UI/toast"
 
-const FileForm = () => {
+type FileProps = {
+    onSuccess: () => void
+}
+const FileForm = ({ onSuccess }: FileProps) => {
     const { register, handleSubmit, reset } = useForm<FileUpload>({
         resolver: zodResolver(FileUploadSchema)
     })
     const [submitting, setSubmitting] = useState(false);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const onSubmit = async (data: FileUpload) => {
         if (submitting) return
 
         const file = data.file?.[0]
         if (!file) {
-            setErrorMessage("Please select an excel file");
+            notify.error("Please select an excel file");
             return
         }
 
@@ -26,17 +28,16 @@ const FileForm = () => {
         formData.append("file", file)
 
         setSubmitting(true);
-        setErrorMessage(null);
-        setSuccessMessage(null);
 
         try {
             const result = await fileUpload(`/upload/products`, formData)
 
             if (!result.ok) {
-                setErrorMessage(result.message || "Unkown Error")
+                notify.error(result.message || "Unkown Error")
             } else {
-                setSuccessMessage("Success, Exit to close")
-                reset
+                notify.success("Success!")
+                reset()
+                onSuccess?.()
             }
         } finally {
             setSubmitting(false)
@@ -56,9 +57,6 @@ const FileForm = () => {
             <button type="submit" disabled={submitting} className={styles.fileFormBtn}>
                 {submitting ? "Uploading" : "Upload File"}
             </button>
-
-            {errorMessage ?? <p className={styles.errTxt}>{errorMessage}</p>}
-            {successMessage ?? <p>{successMessage}</p>}
         </form>
     )
 }
