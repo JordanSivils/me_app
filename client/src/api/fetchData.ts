@@ -1,3 +1,4 @@
+import { notify } from "../components/UI/toast"
 import { apiUrl } from "./url"
 
 export const apiFetch = async <T>(url: string, auth: string): Promise<T> => {
@@ -9,7 +10,7 @@ export const apiFetch = async <T>(url: string, auth: string): Promise<T> => {
         })
 
         if (!response.ok) {
-            throw new Error("Server Problem")
+             notify.error("server error")
         }
 
         const data = await response.json() as Promise<T>

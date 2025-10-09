@@ -19,6 +19,8 @@ ul {
 
 .flex {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .flex-col {
@@ -42,3 +44,4 @@ a {
     text-decoration: none;
     cursor: pointer;
 }
+
