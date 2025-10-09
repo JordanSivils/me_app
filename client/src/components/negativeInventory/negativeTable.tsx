@@ -33,7 +33,8 @@ const NegativeInventoryTable = () => {
             const token = await getToken();
             if (!token) {
                 console.warn("No Token")
-                return <p>User Credentials not Found</p>
+                notify.error("No User Credentials")
+                return 
             }
             const res = await apiFetch<ListResponseObject>(url, token)
             const pagination = res.data
