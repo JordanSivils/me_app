@@ -9,15 +9,19 @@ import { apiPatch } from "../../api/patch";
 import type { ListResponseObject } from "../../api/types/responses";
 import SingleItem from "../item/SingleItem";
 import { notify } from "../UI/toast";
+import Pagination from "../UI/pagination/Pagination";
+import Limit from "../UI/pagination/Limit";
+import Loading from "../UI/loading/Loading";
 
 const NegativeInventoryTable = () => {
     const { getToken } = useAuth();
     const [negativeInventory, setNegativeInventory] = useState<NegativeItemList[] | null>(null);
+    const [loading, setLoading] = useState(false)
     const [createModalOpen, setCreateModalOpen] = useState(false);
     const [detailModalOpen, setDetailModalOpen] = useState(false);
     const [activeId, setActiveId] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [limit, setLimit] = useState<number>(15);
+    const [limit, setLimit] = useState<number | 15>(15);
     const [previousPage, setPreviousPage] = useState(false);
     const [nextPage, setNextPage] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
@@ -30,6 +34,7 @@ const NegativeInventoryTable = () => {
 
     const fetchData = useCallback(async () => {
         try {
+            setLoading(true)
             const token = await getToken();
             if (!token) {
                 console.warn("No Token")
@@ -48,6 +53,8 @@ const NegativeInventoryTable = () => {
             setTotal(pagination.total);
         } catch (error) {
             notify.error("Server Error")
+        } finally {
+            setLoading(false)
         }
             
         }, [getToken, url])
@@ -70,7 +77,14 @@ const NegativeInventoryTable = () => {
         previousPage && setCurrentPage(currentPage - 1)
     }
 
+    const handleLimit = (nextSize: number) => {
+        setCurrentPage(1)
+        setLimit(nextSize)
+    }
+    const opts = [15, 25, 50]
+
     type PatchBody = { status: "negative" | "standard"}
+    
 
     const onToggle = async (row: NegativeItemList, checked: boolean) => {
         const token = await getToken();
@@ -94,23 +108,35 @@ const NegativeInventoryTable = () => {
                 setCreateModalOpen(false)
             }} /></Portal>
             <Portal isOpen={detailModalOpen} onClose={() => setDetailModalOpen(false)}>
-                {activeId && <SingleItem itemId={activeId} />}
+                {activeId && <SingleItem itemId={activeId} onError={() => setDetailModalOpen(false)}/>}
             </Portal>
+           
             <div className={styles.tableHeader}>
+                
                 <div className={`${styles.topGroup} flex`}>
                     <h3>Negative Inventory List</h3>
-                    <p>Total: {total}</p>
+                    <Limit 
+                    limit={limit}
+                    limitOpts={opts}
+                    newLimit={handleLimit}
+                    />
                 </div>
                 <div className={`${styles.topGroup} flex`}>
                     <button className={styles.createBtn} onClick={() => setCreateModalOpen(true)}>Upload Inventory</button>
-                    <div className={`${styles.pagination} flex`}>
-                        <button onClick={handlePrev} disabled={!previousPage}>Back</button>
-                        <p>{currentPage} / {totalPages}</p>
-                        <button onClick={handleNext} disabled={!nextPage}>Next</button>
-                    </div>
+                    <Pagination 
+                    total={total}
+                    previousPage={previousPage}
+                    nextPage={nextPage}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onNext={handleNext}
+                    onPrev={handlePrev}
+                    />
                 </div>
             </div>
+            {loading && <Loading />}
             <table className={styles.table}>
+                 
                 <thead className={styles.tableHead}>
                     <tr className={styles.tableHeadRow}>
                         <th className={styles.headIdentifier}>SKU</th>
@@ -148,8 +174,8 @@ const NegativeInventoryTable = () => {
                         </td>
                     </tr>
                     ))}
-                    
                 </tbody>
+                
             </table>
             
        </div>

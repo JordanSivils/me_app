@@ -5,18 +5,22 @@ import type { ItemSchema } from "../../api/types/item/itemSchema"
 import type { SingleItemResponse } from "../../api/types/responses"
 import styles from "./SingleItem.module.css"
 import { notify } from "../UI/toast"
+import Loading from "../UI/loading/Loading"
 
 type ItemProps = {
     itemId: string
+    onError: () => void
 }
 
-const SingleItem = ({ itemId }: ItemProps) => {
+const SingleItem = ({ itemId, onError }: ItemProps) => {
     const [item, setItem] = useState<ItemSchema | null>(null)
+    const [loading, setLoading] = useState(false)
     
     const url = `/item/${itemId}`
     const { getToken } = useAuth()
     useEffect(() => {
         const getItem = async () => {
+            setLoading(true)
             const token = await getToken()
             if (!token) {
                 notify.error("No User Credentials")
@@ -25,16 +29,23 @@ const SingleItem = ({ itemId }: ItemProps) => {
             try {
                 const res = await apiFetch<SingleItemResponse>(url, token)
                 console.log(res)
+                
                 setItem(res.data)
             } catch (error: any) {
+                onError?.()
                 notify.error(error.message || "Server Error")
+            } finally {
+                setLoading(false)
             }
         }
         getItem()
     }, [])
     return (
         <>
+        {loading ? <Loading /> :
+        
         <div className={`${styles.itemContainer} flex-col`}>
+            
             <div className={`${styles.head} flex`}>
                 <h2>{item?.description}</h2>
                 <p>SKU: {item?.sku}</p>
@@ -61,6 +72,8 @@ const SingleItem = ({ itemId }: ItemProps) => {
                 }
             </ul>
         </div>
+        }
+        
         
         </>
     )
