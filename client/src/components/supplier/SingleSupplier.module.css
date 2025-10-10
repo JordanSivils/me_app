@@ -1,0 +1,27 @@
+.itemContainer {
+    padding: 30px;
+    font-size: 20px;
+    gap: 14px;
+}
+
+.itemContainer .head {
+    gap: 40px
+}
+.itemContainer .head h2 {
+    text-align: start;
+}
+
+.itemContainer ul {
+    text-align: start;
+    gap: 12px
+}
+
+.itemContainer ul span {
+    font-weight: bold;
+}
+.dash {
+    list-style:circle;
+}
+.dash li {
+    margin-left: 14px;
+}

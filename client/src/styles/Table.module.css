@@ -17,6 +17,9 @@
     align-items: center;
     justify-content: space-between;
 }
+.right {
+    justify-content: end;
+}
 
 .createBtn {
     color: white;
