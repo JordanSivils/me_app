@@ -9,6 +9,8 @@ import PdfDownload from "../components/ExceltoPdf/pages/PdfDownload"
 import FourOhFour from "../pages/specials/Fours"
 import NegativeInventory from "../components/negativeInventory/page/NegativeInventory"
 import SupplierPage from "../components/supplier/page/SupplierPage"
+import AdminHome from "../components/Admin/page/AdminHome"
+import AdminWrapper from "./permissions/AdminWrapper"
 
 function Routing() {
   const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -34,6 +36,10 @@ function Routing() {
               <Route path="/negative-inventory" element={<NegativeInventory /> }/>
 
               <Route path="/suppliers" element={<SupplierPage />} />
+
+              <Route element={<AdminWrapper />}>
+                <Route path="/admin/home" element={<AdminHome />} />
+              </Route>
 
               <Route path="*" element={<FourOhFour />} />
               
