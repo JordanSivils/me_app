@@ -8,7 +8,7 @@ const AdminWrapper = () => {
     const { hasAny, isLoaded, isSignedIn } = useRoles();
 
     if (!isLoaded) return <Loading />
-    if(!isSignedIn || !hasAny(["ldjfska", "iiajsdkf"])) return <Unauthorized />
+    if(!isSignedIn || !hasAny(["admin", "dev"])) return <Unauthorized />
     return (
         <Outlet />
     )
