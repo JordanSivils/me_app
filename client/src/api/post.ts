@@ -31,3 +31,26 @@ export const fileUpload = async (url: string, body: BodyInit): Promise<FileUploa
         }
     }
 }
+
+export const apiPost = async <TReq, TRes>(url: string, token: string, body: TReq): Promise<TRes> => {
+    try {
+            const res =  await fetch(`${apiUrl}${url}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        })
+        if (!res.ok) {
+            if (res.status === 409) {
+                throw new Error("User Already Exists")
+            }
+            throw new Error("Server Error")
+        }
+        return res.json() as Promise<TRes>
+
+    } catch (error: any) {
+        throw new Error(error.message || "server error")
+    }
+}

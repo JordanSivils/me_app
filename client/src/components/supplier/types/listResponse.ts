@@ -31,5 +31,3 @@ export const ListResponseObject = z.object({
 
 export type ListResponseObject = z.infer<typeof ListResponseObject>
 
-
-

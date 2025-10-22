@@ -1,0 +1,78 @@
+.formContainer {
+    justify-content: center;
+    align-items: start;
+    gap: 12px;
+    padding: 14px;
+}
+
+.formContainer form {
+    align-items: start;
+    gap: 12px;
+}
+
+.btn {
+    color: white;
+    background-color: rgb(1, 145, 1);
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+.formGroup {
+    align-items: start;
+    gap: 4px
+}
+
+.formGroup label {
+    font-weight: bold;
+}
+
+.formGroup input {
+    height: 26px;
+    background-color: rgb(216, 216, 216);
+    min-width: 260px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 6px;
+    padding: 2px;
+    border: none;
+}
+
+.formGroup input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid var(--prim-blue);
+}
+
+.btnDisabled {
+    color: black;
+    background-color: gray;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.cancelBtn {
+    color: var(--prim-font-color);
+    background-color: rgb(148, 0, 0);
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+.cancelBtn:hover{
+    cursor: pointer;
+}
+
+.submitGroup {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
