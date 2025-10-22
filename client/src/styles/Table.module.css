@@ -35,6 +35,11 @@
 .table {
     width: 100%;
     border-radius: 6px;
+    padding-bottom: 4px;
+}
+.tableOne {
+    margin-bottom: 12px;
+    border-bottom: 1px solid gray;
 }
 
 .tableHead {
@@ -70,11 +75,23 @@
     color: #ccc;
 }
 .tableLink {
-    color: rgb(255, 119, 0);
+    color: var(--prim-orange);
     text-decoration: none;
     background: none;
     border: none;
 }
+
+.createLink {
+    color: var(--prim-blue);
+    text-decoration: none;
+    background: none;
+    border: none;
+}
+
+ .createLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+ }
 
 .tableLink:hover {
     text-decoration: underline;
