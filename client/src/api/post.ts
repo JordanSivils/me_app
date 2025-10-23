@@ -1,10 +1,13 @@
 import type { FileUploadResponse } from "../components/negativeInventory/types/negativeTypes";
 import { apiUrl } from "./url";
 
-export const fileUpload = async (url: string, body: BodyInit): Promise<FileUploadResponse> => {
+export const fileUpload = async (url: string, body: BodyInit, token: string): Promise<FileUploadResponse> => {
     try {
         const response = await fetch(`${apiUrl}${url}`, {
             method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
             body: body
         })
         const text = await response.text()

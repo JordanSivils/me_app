@@ -5,11 +5,13 @@ import { useState } from "react"
 import { fileUpload } from "../../api/post"
 import styles from  "./FileForm.module.css"
 import { notify } from "../UI/toast"
+import { useAuth } from "@clerk/react-router"
 
 type FileProps = {
     onSuccess: () => void
 }
 const FileForm = ({ onSuccess }: FileProps) => {
+    const { getToken } = useAuth();
     const { register, handleSubmit, reset } = useForm<FileUpload>({
         resolver: zodResolver(FileUploadSchema)
     })
@@ -17,7 +19,11 @@ const FileForm = ({ onSuccess }: FileProps) => {
 
     const onSubmit = async (data: FileUpload) => {
         if (submitting) return
-
+        const token = await getToken();
+        if (!token) {
+            notify.error("no user credentials")
+            return
+        };
         const file = data.file?.[0]
         if (!file) {
             notify.error("Please select an excel file");
@@ -30,7 +36,7 @@ const FileForm = ({ onSuccess }: FileProps) => {
         setSubmitting(true);
 
         try {
-            const result = await fileUpload(`/upload/products`, formData)
+            const result = await fileUpload(`/upload/products`, formData, token)
 
             if (!result.ok) {
                 notify.error(result.message || "Unkown Error")
