@@ -2,7 +2,6 @@
     height: 100%;
     min-height: 0;
     width: 100%;
-    padding: 4px;
 }
 .tableHeader {
     display: flex;
@@ -35,7 +34,6 @@
 .table {
     width: 100%;
     border-radius: 6px;
-    padding-bottom: 4px;
 }
 .tableOne {
     margin-bottom: 12px;

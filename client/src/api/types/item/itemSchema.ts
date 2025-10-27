@@ -2,7 +2,7 @@ import z from "zod";
 import { ManufacturerSchema } from "./manufacturerSchema";
 import { CategorySchema } from "./categorySchema";
 import { BrandSchema } from "./brandSchema";
-import { SupplierSchema } from "./supplierSchema";
+import { SupplierSchema } from "../../../components/supplier/types/listResponse";
 
 export const ItemSchema = z.object({
     id: z.uuid(),
