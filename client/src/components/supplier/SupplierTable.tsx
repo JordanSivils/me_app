@@ -80,12 +80,12 @@ const { getToken } = useAuth();
     return (
        <div className={styles.tableContainer}>
             <Portal isOpen={detailModalOpen} onClose={() => setDetailModalOpen(false)}>
-                {activeId && <SingleSupplier  supplierId={activeId} onError={() => setDetailModalOpen(false)}/>}
+                {activeId && <SingleSupplier  supplierId={activeId} onError={() => setDetailModalOpen(false)} onClose={() => setDetailModalOpen(false)}/>}
             </Portal>
            
             <div className={styles.tableHeader}>
                 <div className={`${styles.topGroup} flex`}>
-                    <h3>Negative Inventory List</h3>
+                    <h3>Suppliers</h3>
                     <Limit 
                     limit={limit}
                     limitOpts={opts}
@@ -129,9 +129,7 @@ const { getToken } = useAuth();
                         </tr>
                         ))}
                     </tbody>
-                    
                 </table>
-            
        </div>
     )
 }

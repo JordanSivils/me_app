@@ -30,4 +30,39 @@ export const ListResponseObject = z.object({
 })
 
 export type ListResponseObject = z.infer<typeof ListResponseObject>
+// Single Response!
 
+
+export const UserSchema = z.object({
+    id: z.uuid(),
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
+    email: z.string().min(1),
+    phoneNumber: z.string().min(1)
+})
+export type User = z.infer<typeof UserSchema>
+
+export const SupplierDetailsSchema = z.object({
+    id: z.uuid(),
+    orderDay: z.string().min(1).optional(),
+    orderNotes: z.string().min(1).optional(),
+    orderMinimum: z.string().min(1).optional(),
+    user: UserSchema.optional()
+})
+export type SupplierDetails = z.infer<typeof SupplierDetailsSchema>
+
+export const SupplierSchema = z.object({
+    id: z.uuid(),
+    name: z.string().min(1),
+    supplierDetails: SupplierDetailsSchema.optional()
+})
+export type Supplier = z.infer<typeof SupplierSchema>
+
+export const SingleResponseSchema = z.object({
+    ok: z.boolean(),
+    status: z.coerce.number(),
+    message: z.string(),
+    data: SupplierSchema
+})
+
+export type SingleResponse = z.infer<typeof SingleResponseSchema>
