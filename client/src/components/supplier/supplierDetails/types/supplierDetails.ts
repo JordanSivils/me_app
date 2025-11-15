@@ -8,3 +8,6 @@ export const SupplierDetailsBodySchema = z.object({
     supplierId: z.uuid()
 })
 export type SupplierDetailsBody = z.infer<typeof SupplierDetailsBodySchema>;
+
+export const SupplierDetailsPut = SupplierDetailsBodySchema.partial();
+export type SupplierDetailsPut = z.infer<typeof SupplierDetailsPut>;

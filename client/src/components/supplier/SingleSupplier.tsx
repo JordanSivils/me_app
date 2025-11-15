@@ -39,6 +39,7 @@ const SingleSupplier = ({ supplierId, onError, onClose }: SupplierProps) => {
         } catch (error: any) {
             notify.error(error.message || "Server Error");
             onError?.()
+            onClose?.()
         } finally {
             setLoading(false)
         }
@@ -63,7 +64,9 @@ const SingleSupplier = ({ supplierId, onError, onClose }: SupplierProps) => {
                 />
             </Portal>
             <Portal isOpen={editModal} onClose={() => setEditModal(false)}>
-                <EditSupplierDetails />
+                {supplier?.supplierDetails &&
+                    <EditSupplierDetails data={ supplier } />
+                }
             </Portal>
             <div className={`${styles.head} flex`}>
                 <h2>{supplier?.name}</h2>
@@ -99,14 +102,12 @@ const SingleSupplier = ({ supplierId, onError, onClose }: SupplierProps) => {
                     </ul> :
                     null 
                     }
-                <button className={styles.editBtn} onClick={
-                    () => {
-                        onClose?.()
-                        setEditModal(true)
-                        setSupId(supplier.id);
-                        {console.log(supplier.id)}
-                    }
                     
+                <button className={styles.editBtn} onClick={() => {
+                        setEditModal(true)
+                        setSupplier(supplier)
+                        
+                    }
                     }>Edit</button>
                 </div>
                  : 
