@@ -7,7 +7,7 @@ import { notify } from "../UI/toast"
 import { apiFetch } from "../../api/fetchData"
 
 const UserSelect = ({ registration }: { registration: UseFormRegisterReturn}) => {
-    const [users, setUsers] = useState<MeUser[] | []>([])
+    const [users, setUsers] = useState<MeUser[]>([])
     const { getToken } = useAuth()
     const fetch = async () => {
         try {
@@ -30,12 +30,15 @@ const UserSelect = ({ registration }: { registration: UseFormRegisterReturn}) =>
     useEffect(() => {
             fetch()
         }, [])
+        
     return (
-        <select {...registration}>
-            <option value="">Select Employee</option>
-            {users?.map(user => (
-                <option key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>
-            ))}
+        <select key={users.length} {...registration}>
+        <option value="">Select Employee</option>
+        {users.map(user => (
+            <option key={user.id} value={String(user.id)}>
+            {user.firstName} {user.lastName}
+            </option>
+        ))}
         </select>
     )
 }

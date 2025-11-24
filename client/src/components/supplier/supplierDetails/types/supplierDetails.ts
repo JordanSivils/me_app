@@ -9,5 +9,10 @@ export const SupplierDetailsBodySchema = z.object({
 })
 export type SupplierDetailsBody = z.infer<typeof SupplierDetailsBodySchema>;
 
-export const SupplierDetailsPut = SupplierDetailsBodySchema.partial();
-export type SupplierDetailsPut = z.infer<typeof SupplierDetailsPut>;
+export const SupplierDetailsPutschema = z.object({
+    userId: z.uuid().optional(),
+    orderDay: z.string().min(1).optional(),
+    orderNotes: z.string().min(1).optional(),
+    orderMinimum: z.string().min(1).optional(),
+})
+export type SupplierDetailsPut = z.infer<typeof SupplierDetailsPutschema>;

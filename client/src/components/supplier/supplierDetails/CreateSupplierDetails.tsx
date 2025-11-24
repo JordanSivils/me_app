@@ -48,7 +48,7 @@ const CreateSupplierDetails = ({ supplierId, supplierName, onClose, reRender }: 
             setDetailModalOpen(true);
 
         } catch (error: any) {
-            notify.error(error?.message || "Failed to create user")
+            notify.error(error?.message || "Failed to create Supplier")
         }
         
     }
