@@ -28,9 +28,9 @@ const { getToken } = useAuth();
     useEffect(() => {
         const timeout = setTimeout(() => {
             setDebounce(search)
-        }, 300)
+        }, 700)
         return () => clearTimeout(timeout)
-    })
+    }, [search])
 
     useEffect(() => {
         setCurrentPage(1);
