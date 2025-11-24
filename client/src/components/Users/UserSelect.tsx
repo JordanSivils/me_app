@@ -6,8 +6,14 @@ import { useAuth } from "@clerk/react-router"
 import { notify } from "../UI/toast"
 import { apiFetch } from "../../api/fetchData"
 
-const UserSelect = ({ registration }: { registration: UseFormRegisterReturn}) => {
-    const [users, setUsers] = useState<MeUser[] | []>([])
+type UserSelectProps = {
+    registration: UseFormRegisterReturn;
+    id: string
+    name: string
+}
+
+const UserSelect = ({ registration, id, name }: UserSelectProps) => {
+    const [users, setUsers] = useState<MeUser[]>([])
     const { getToken } = useAuth()
     const fetch = async () => {
         try {
@@ -30,9 +36,10 @@ const UserSelect = ({ registration }: { registration: UseFormRegisterReturn}) =>
     useEffect(() => {
             fetch()
         }, [])
+        
     return (
         <select {...registration}>
-            <option value="">Select Employee</option>
+            <option value={id ? id : ""}>{name ? name : "Select Employee"}</option>
             {users?.map(user => (
                 <option key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>
             ))}

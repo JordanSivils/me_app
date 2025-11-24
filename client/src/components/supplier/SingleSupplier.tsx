@@ -65,7 +65,11 @@ const SingleSupplier = ({ supplierId, onError, onClose }: SupplierProps) => {
             </Portal>
             <Portal isOpen={editModal} onClose={() => setEditModal(false)}>
                 {supplier?.supplierDetails &&
-                    <EditSupplierDetails data={ supplier } />
+                    <EditSupplierDetails 
+                    sup={ supplier } 
+                    onClose={() => setEditModal(false)}
+                    rerender={handleRerender}
+                    />
                 }
             </Portal>
             <div className={`${styles.head} flex`}>
