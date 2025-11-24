@@ -22,11 +22,26 @@ const { getToken } = useAuth();
     const [nextPage, setNextPage] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [total, setTotal] = useState(0);
+    const [search, setSearch] = useState<string>("");
+    const [debounce, setDebounce] = useState("");
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebounce(search)
+        }, 300)
+        return () => clearTimeout(timeout)
+    })
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [debounce])
     
-    const url = useMemo(
-        () => `/suppliers?limit=${limit}&page=${currentPage}`,
-        [limit, currentPage]
-    )
+    const url = useMemo(() => {
+        const base = `/suppliers?limit=${limit}&page=${currentPage}`;
+        return search && search.length >= 2 ?
+        `${base}&search=${search}` : base
+    
+    },[limit, currentPage, debounce])
 
     const fetchData = useCallback(async () => {
         try {
@@ -37,9 +52,11 @@ const { getToken } = useAuth();
                 notify.error("No User Credentials")
                 return 
             }
+
             const res = await apiFetch<ListResponseObject>(url, token)
             const pagination = res.data
             const data = res.data?.items 
+
             setSuppliers(data); 
             setCurrentPage(pagination.page);
             setLimit(pagination.limit);
@@ -92,7 +109,11 @@ const { getToken } = useAuth();
                     newLimit={handleLimit}
                     />
                 </div>
-                <div className={`${styles.right} flex`}>
+                
+                <div className={`${styles.appart} flex`}>
+                    <div>
+                        <input className={styles.search} type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="search"/>
+                    </div>
                     <Pagination 
                     total={total}
                     previousPage={previousPage}
