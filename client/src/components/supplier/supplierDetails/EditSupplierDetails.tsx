@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { Supplier } from "../types/listResponse"
 import Loading from "../../UI/loading/Loading"
 import styles from "./CreateSupplierDetails.module.css"
@@ -23,17 +23,27 @@ const [loading, setLoading] = useState(false);
 
 const { getToken } = useAuth();
 
-const { register, handleSubmit, formState:{
+const { register, handleSubmit, reset ,formState:{
      isSubmitting, isValid
 }} = useForm<SupplierDetailsPut>({
     resolver: zodResolver(SupplierDetailsPutschema),
     defaultValues: {
-        userId: sup.supplierDetails?.user?.id ?? undefined,
+        userId: "",
+        orderDay: "",
+        orderNotes: "",
+        orderMinimum: "",
+    }
+});
+{console.log(sup.supplierDetails?.user?.id)}
+
+useEffect(() => {
+    reset({
+        userId: sup.supplierDetails?.user?.id ?? "",
         orderDay: sup.supplierDetails?.orderDay ?? "Monday",
         orderNotes: sup.supplierDetails?.orderNotes ?? undefined,
         orderMinimum: sup.supplierDetails?.orderMinimum ?? undefined,
-    }
-});
+    })
+}, [sup, reset])
 
 const onSubmit = async (data: SupplierDetailsPut) => {
     try {
@@ -64,8 +74,6 @@ const onSubmit = async (data: SupplierDetailsPut) => {
                     <label>Ordered By: </label>
                     <UserSelect 
                         registration={register("userId", { required: true })} 
-                        name={`${sup.supplierDetails?.user?.firstName} ${sup.supplierDetails?.user?.lastName}` || ""}
-                        id={sup.supplierDetails?.user?.id || ""}
                         />
                 </div>
                 <div className={styles.formGroup}>
