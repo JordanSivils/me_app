@@ -169,9 +169,31 @@ input:checked + .slider:before {
 }
 .pagination button:disabled {
     color: black;
-    background-color: gray;
+    background-color: rgb(214, 214, 214);
     cursor: not-allowed;
 }
 .pagination p {
     padding: 2px 10px
+}
+
+.search {
+    border: none;
+    box-shadow: none;
+    background-color: rgb(214, 214, 214);
+    height: 24px;
+    width: 250px;
+    border-radius: 4px;
+    padding-left: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.search:focus {
+    outline: none;
+    background-color: white;
+}
+
+.appart {
+    justify-content: space-between;
+    padding: 6px 0;
 }
